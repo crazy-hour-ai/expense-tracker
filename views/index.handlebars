@@ -1,7 +1,109 @@
-<h1>Welcome</h1>
+<div class="container ">
 
-<ul>
-  <li>
 
-  </li>
-</ul>
+  <div class="row">
+    <div class="mt-4 d-flex justify-content-end align-items-end">
+
+      <div class="dropdown mr-3 d-flex justify-content-end align-items-end">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Category Search
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">All</a>
+          <a class="dropdown-item" href="#"><i class="fas fa-home"></i> 家居物業</a>
+          <a class="dropdown-item" href="#"><i class="fas fa-shuttle-van"></i> 交通出行</a>
+          <a class="dropdown-item" href="#"><i class="fas fa-utensils"></i> 餐飲食品</a>
+          <a class="dropdown-item" href="#"><i class="fas fa-grin-beam"></i> 休閒娛樂</a>
+          <a class="dropdown-item" href="#"><i class="fas fa-pen"></i> 其他</a>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="mt-4 d-flex justify-content-end align-items-end">
+    <h6 class="text-center mr-3">總金額：</h6>
+    <h1 class="text-center sum">0</h1>
+  </div>
+
+
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">類別</th>
+        <th scope="col">項目</th>
+        <th scope="col">花費</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each records}}
+      <tr class="record">
+        <td>
+          <div class="category">{{this.category}}</div>
+        </td>
+        <td>
+          <div class="name">
+            <h5>{{this.name}}</h5>
+            <small>{{this.date}} </small>
+          </div>
+        </td>
+        <td id="cost">$ {{this.amount}}</td>
+        <td class="d-flex justify-content-end">
+          <a href="/records/{{this.id}}/edit" class="btn btn-info mr-3">修改</a>
+          <form action="/records/{{this.id}}?_method=DELETE" method="POST" style="display: inline-block;"
+            onsubmit="return confirm('Confirm to delete ?')">
+            <button type="submit" class="btn btn-danger">刪除</button>
+          </form>
+        </td>
+      </tr>
+      {{/each}}
+
+    </tbody>
+  </table>
+
+  {{!-- <div class="row">
+    <div class="d-flex justify-content-center mx-auto">
+
+      <ul class="list-group">
+        <li class="list-group-item">
+          <div class="row">
+
+            <dir class="col-auto mr-auto">
+              <span>expenses list</span>
+            </dir>
+
+            <div class="col-auto">
+              <span>
+                <a href="/records/1/edit" class="btn btn-primary">Edit</a>
+              </span>
+              <span>
+                <a href="/" class="btn btn-primary">Delete</a>
+              </span>
+
+            </div>
+
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div> --}}
+
+
+  <div class="row">
+    <div class="d-flex justify-content-center mx-auto">
+
+      <a href="/records/new" class="btn btn-primary">新增支出</a>
+    </div>
+  </div>
+
+
+
+</div>

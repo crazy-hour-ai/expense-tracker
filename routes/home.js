@@ -1,12 +1,19 @@
 
-
 const express = require('express');
 const router = express.Router();
 
-const app = express();
+const Record = require('../models/record.js');
 
 router.get('/', (req, res) => {
-  res.render('index');
+
+  Record.find({})
+    .lean()
+    .find((err, records) => {
+      if (err) {
+        return console.log(err);
+      }
+      res.render('index', { records: records });
+    })
 })
 
 module.exports = router;
