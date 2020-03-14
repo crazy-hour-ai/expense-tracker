@@ -39,7 +39,21 @@ router.get('/:id/edit', (req, res) => {
 })
 
 router.put('/:id/edit', (req, res) => {
-  return res.redirect('/')
+  Record.findOne({ _id: req.params.id }, (err, record) => {
+    if (err)
+      return console.log(err);
+    record.name = req.body.name;
+    record.category = req.body.category;
+    record.date = req.body.date;
+    record.amount = req.body.amount;
+
+    record.save(err => {
+      if (err)
+        return console.log(err);
+      res.redirect('/')
+    })
+
+  })
 })
 
 router.delete('/:id/delete', (req, res) => {

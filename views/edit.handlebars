@@ -11,7 +11,7 @@
 
       {{!-- {{>message}} --}}
 
-      <form action="/records/{{record._id}}/edit" method="post">
+      <form action="/records/{{record._id}}/edit?_method=PUT" method="POST">
         <div class="form-group">
           <font class="text-danger">*</font>
           <label for="name">名稱</label>
@@ -31,7 +31,7 @@
           <select name="category" id="sort-button" class="form-control">
             {{#each category}}
 
-            <option value="{{record.category}}" {{#if record.category}}selected{{/if}}>
+            <option value="{{this.category}}" {{#if record.category}}selected{{/if}}>
               <i class="{{{this.icon}}}"></i>{{this.category}}
             </option>
             {{/each}}
