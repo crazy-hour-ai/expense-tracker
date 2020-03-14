@@ -31,7 +31,6 @@
   </div>
 
 
-
   <table class="table table-striped">
     <thead>
       <tr>
@@ -56,7 +55,7 @@
         </td>
         <td id="cost">$ {{this.amount}}</td>
         <td class="d-flex justify-content-end">
-          <a href="/records/{{this.id}}/edit" class="btn btn-info mr-3">修改</a>
+          <a href="/records/{{this._id}}/edit" class="btn btn-info mr-3">修改</a>
           <form action="/records/{{this.id}}?_method=DELETE" method="POST" style="display: inline-block;"
             onsubmit="return confirm('Confirm to delete ?')">
             <button type="submit" class="btn btn-danger">刪除</button>
@@ -68,33 +67,6 @@
     </tbody>
   </table>
 
-  {{!-- <div class="row">
-    <div class="d-flex justify-content-center mx-auto">
-
-      <ul class="list-group">
-        <li class="list-group-item">
-          <div class="row">
-
-            <dir class="col-auto mr-auto">
-              <span>expenses list</span>
-            </dir>
-
-            <div class="col-auto">
-              <span>
-                <a href="/records/1/edit" class="btn btn-primary">Edit</a>
-              </span>
-              <span>
-                <a href="/" class="btn btn-primary">Delete</a>
-              </span>
-
-            </div>
-
-          </div>
-        </li>
-      </ul>
-    </div>
-
-  </div> --}}
 
 
   <div class="row">

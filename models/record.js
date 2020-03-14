@@ -18,10 +18,11 @@ const recordSchema = new Schema({
   amount: {
     type: Number,
     required: true
-  },
-  // userId: {
+  }
+
+  // categoryId: {
   //   type: Schema.Types.ObjectId,
-  //   ref: 'User',
+  //   ref: 'Category',
   //   index: true,
   //   required: true
   // }

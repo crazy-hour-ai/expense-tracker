@@ -29,7 +29,13 @@ router.post('/', (req, res) => {
 })
 
 router.get('/:id/edit', (req, res) => {
-  return res.render('edit');
+  Record.findOne({ _id: req.params.id })
+    .lean()
+    .exec((err, recordEdit) => {
+      if (err)
+        return console.log(err);
+      return res.render('edit', { record: recordEdit, category: Category })
+    })
 })
 
 router.put('/:id/edit', (req, res) => {
