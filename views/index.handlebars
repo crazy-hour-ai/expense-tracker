@@ -10,12 +10,12 @@
           Category Search
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">All</a>
-          <a class="dropdown-item" href="#"><i class="fas fa-home"></i> 家居物業</a>
-          <a class="dropdown-item" href="#"><i class="fas fa-shuttle-van"></i> 交通出行</a>
-          <a class="dropdown-item" href="#"><i class="fas fa-utensils"></i> 餐飲食品</a>
-          <a class="dropdown-item" href="#"><i class="fas fa-grin-beam"></i> 休閒娛樂</a>
-          <a class="dropdown-item" href="#"><i class="fas fa-pen"></i> 其他</a>
+          <a class="dropdown-item" href="/search?keyword">All</a>
+          <a class="dropdown-item" href="/search?keyword=家居物業"><i class="fas fa-home"></i> 家居物業</a>
+          <a class="dropdown-item" href="/search?keyword=交通出行"><i class="fas fa-shuttle-van"></i> 交通出行</a>
+          <a class="dropdown-item" href="/search?keyword=餐飲食品"><i class="fas fa-utensils"></i> 餐飲食品</a>
+          <a class="dropdown-item" href="/search?keyword=休閒娛樂"><i class="fas fa-grin-beam"></i> 休閒娛樂</a>
+          <a class="dropdown-item" href="/search?keyword=其他"><i class="fas fa-pen"></i> 其他</a>
 
         </div>
       </div>
@@ -27,7 +27,7 @@
 
   <div class="mt-4 d-flex justify-content-end align-items-end">
     <h6 class="text-center mr-3">總金額：</h6>
-    <h1 class="text-center sum">0</h1>
+    <h1 class="text-center sum">$ {{totalAmount}}</h1>
   </div>
 
 
