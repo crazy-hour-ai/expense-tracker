@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const recordList = require('../../data/record.json').records;
 const Record = require('../../models/record.js');
 
+const userList = require('../../data/user.json').users;
+const User = require('../../models/user.js');
+
 const categoryList = require('../../data/category.json').categories;
 const Category = require('../../models/category.js');
 
@@ -17,25 +20,46 @@ db.on('error', () => {
 db.once('open', () => {
   console.log('db connected');
 
-  // categoryList.forEach((categoryIndex, index) => {
+  let recordListUser = [];
 
+  // categoryList.forEach((categoryIndex, index) => {
   //   Category.create({
   //     category: categoryIndex.category,
   //     icon: categoryIndex.icon
   //   })
   //     .then(result => {
 
-  recordList.forEach((record) => {
-    Record.create({
-      name: record.name,
-      category: record.category,
-      date: record.date,
-      amount: record.amount,
-      // categoryId: result._id
+  console.log(recordList)
+
+  userList.forEach((user, index) => {
+    User.create({
+      name: user.name,
+      email: user.email,
+      password: user.password
     })
+      .then(userResult => {
+
+        if (index === 0) {
+          recordListUser = recordList.slice(0, 5);
+        }
+        else {
+          recordListUser = recordList.slice(5, 10);
+        }
+
+        recordListUser.forEach((record) => {
+          Record.create({
+            name: record.name,
+            category: record.category,
+            date: record.date,
+            amount: record.amount,
+            userId: userResult._id
+            // categoryId: result._id
+          })
+        })
+      })
   })
   console.log('done');
+})
 
-});
 
 
