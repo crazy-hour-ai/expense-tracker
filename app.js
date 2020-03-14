@@ -1,5 +1,6 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+const bodyParser = require('body-parser');
 
 const app = express();
 
@@ -22,8 +23,9 @@ db.once('open', () => {
   console.log('mongodb connected');
 })
 
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/', require('./routes/home.js'));
+app.use('', require('./routes/home.js'));
 app.use('/records', require('./routes/record.js'));
 app.use('/users', require('./routes/user'));
 
