@@ -57,7 +57,16 @@ router.put('/:id/edit', (req, res) => {
 })
 
 router.delete('/:id/delete', (req, res) => {
-  return res.redirect('/');
+  Record.findOne({ _id: req.params.id }, (err, record) => {
+    if (err)
+      return console.log(err);
+    record.remove(err => {
+      if (err)
+        return console.log(err);
+      return res.redirect('/');
+    })
+  })
+
 })
 
 module.exports = router;
