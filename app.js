@@ -25,7 +25,7 @@ app.use(methodOverride('_method'));
 
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/record', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect('process.env.MONGODB_URI || mongodb://localhost:27017/record', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 const db = mongoose.connection;
 
 db.on('error', () => {
@@ -70,6 +70,6 @@ app.use('/auth', require('./routes/auths'))
 
 
 
-app.listen(port, () => {
+app.listen(process.env.port || port, () => {
   console.log(`Server is start on http://localhost:${port}`);
 })
