@@ -11,7 +11,7 @@ router.get('/', authenticated, (req, res) => {
   const searchKeyword = req.query.keyword;
 
   let totalAmount = 0;
-  Record.find({})
+  Record.find({ userId: req.user._id })
     .lean()
     .find((err, records) => {
       if (err) {
@@ -33,7 +33,7 @@ router.get('/search', authenticated, (req, res) => {
 
   let totalFilterAmount = 0;
   Record.find({})
-    .lean()
+    .lean() 
     .find((err, records) => {
       if (err) {
         return console.log(err);

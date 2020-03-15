@@ -20,7 +20,8 @@ router.post('/', authenticated, (req, res) => {
     name: req.body.name,
     date: req.body.date,
     category: req.body.category,
-    amount: req.body.amount
+    amount: req.body.amount,
+    userId: req.user._id
   })
 
   record.save(err => {
@@ -31,7 +32,7 @@ router.post('/', authenticated, (req, res) => {
 })
 
 router.get('/:id/edit', authenticated, (req, res) => {
-  Record.findOne({ _id: req.params.id })
+  Record.findOne({ _id: req.params.id, userId: req.user._id })
     .lean()
     .exec((err, recordEdit) => {
       if (err)
@@ -41,7 +42,7 @@ router.get('/:id/edit', authenticated, (req, res) => {
 })
 
 router.put('/:id/edit', authenticated, (req, res) => {
-  Record.findOne({ _id: req.params.id }, (err, record) => {
+  Record.findOne({ _id: req.params.id, userId: req.user._id }, (err, record) => {
     if (err)
       return console.log(err);
     record.name = req.body.name;
@@ -59,7 +60,7 @@ router.put('/:id/edit', authenticated, (req, res) => {
 })
 
 router.delete('/:id/delete', authenticated, (req, res) => {
-  Record.findOne({ _id: req.params.id }, (err, record) => {
+  Record.findOne({ _id: req.params.id, userId: req.user._id }, (err, record) => {
     if (err)
       return console.log(err);
     record.remove(err => {
