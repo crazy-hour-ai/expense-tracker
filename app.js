@@ -10,6 +10,10 @@ const app = express();
 
 const port = 3000;
 
+if (process.env.NODE_env !== 'production') {
+  require('dotenv').config();
+}
+
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
@@ -53,6 +57,8 @@ app.use((req, res, next) => {
 app.use('', require('./routes/home.js'));
 app.use('/records', require('./routes/record.js'));
 app.use('/users', require('./routes/user'));
+app.use('/auth', require('./routes/auths'))
+
 
 
 app.listen(port, () => {
