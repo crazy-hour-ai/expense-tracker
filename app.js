@@ -3,6 +3,8 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 
+const session = require('express-session');
+
 const app = express();
 
 const port = 3000;
@@ -26,6 +28,13 @@ db.on('error', () => {
 db.once('open', () => {
   console.log('mongodb connected');
 })
+
+app.use(session({
+  secret: 'my secret key',
+  resave: false,
+  saveUninitialized: true
+})
+)
 
 
 app.use('', require('./routes/home.js'));
