@@ -9,6 +9,9 @@ const User = require('../../models/user.js');
 const categoryList = require('../../data/category.json').categories;
 const Category = require('../../models/category.js');
 
+const bcrypt = require('bcryptjs');
+
+
 mongoose.connect('mongodb://127.0.0.1:27017/record', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 
 const db = mongoose.connection;
@@ -32,31 +35,47 @@ db.once('open', () => {
   console.log(recordList)
 
   userList.forEach((user, index) => {
-    User.create({
-      name: user.name,
-      email: user.email,
-      password: user.password
-    })
-      .then(userResult => {
 
-        if (index === 0) {
-          recordListUser = recordList.slice(0, 5);
-        }
-        else {
-          recordListUser = recordList.slice(5, 10);
-        }
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(user.password, salt, (err, hash) => {
+        if (err) throw err
+        // newUser.password = hash;
+        // newUser
+        //   .save()
+        //   .then(user => {
+        //     res.redirect('/') // 新增完成導回首頁
+        //   })
+        //   .catch(err => console.log(err))
+        User.create({
+          name: user.name,
+          email: user.email,
+          // password: user.password
+          password: hash
 
-        recordListUser.forEach((record) => {
-          Record.create({
-            name: record.name,
-            category: record.category,
-            date: record.date,
-            amount: record.amount,
-            userId: userResult._id
-            // categoryId: result._id
-          })
         })
+          .then(userResult => {
+
+            if (index === 0) {
+              recordListUser = recordList.slice(0, 5);
+            }
+            else {
+              recordListUser = recordList.slice(5, 10);
+            }
+
+            recordListUser.forEach((record) => {
+              Record.create({
+                name: record.name,
+                category: record.category,
+                date: record.date,
+                amount: record.amount,
+                userId: userResult._id
+                // categoryId: result._id
+              })
+            })
+          })
       })
+
+    })
   })
   console.log('done');
 })
