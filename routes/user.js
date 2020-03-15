@@ -6,30 +6,33 @@ const bcrypt = require('bcryptjs');
 
 const User = require('../models/user');
 
+let errors = [];
+
 router.get('/login', (req, res) => {
-  res.render('login');
+
+  res.render('login')
 })
 
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/users/login'
+    failureRedirect: '/users/login',
+    failureFlash: true
   })(req, res, next)
 
 })
 
 router.get('/register', (req, res) => {
-  res.render('register')
 
+  res.render('register', { errors })
 })
 
 router.post('/register', (req, res) => {
   const { name, email, password, password2 } = req.body;
 
-  let errors = []
 
-  if (!name || !email || !password || !password2) {
-    errors.push({ message: '所有欄位都是必填' })
+  if (!email || !password || !password2) {
+    errors.push({ message: '所有 * 欄位都是必填' })
   }
 
   if (password !== password2) {
@@ -49,6 +52,7 @@ router.post('/register', (req, res) => {
       if (user) {
         errors.push({ message: '這個 Email 已經註冊過了' })
         res.render('register', {
+          errors,
           name,
           email,
           password,
