@@ -41,16 +41,18 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.use('', require('./routes/home.js'));
-app.use('/records', require('./routes/record.js'));
-app.use('/users', require('./routes/user'));
-
 require('./config/passport')(passport);
 
 app.use((req, res, next) => {
-  res.locals.user = req.user
-  next();
+  res.locals.user = req.user;
+  res.locals.isAuthenticated = req.isAuthenticated();     // 辨識使用者是否已經登入的變數，讓 view 可以使用
+  next()
 })
+
+
+app.use('', require('./routes/home.js'));
+app.use('/records', require('./routes/record.js'));
+app.use('/users', require('./routes/user'));
 
 
 app.listen(port, () => {
