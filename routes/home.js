@@ -4,7 +4,9 @@ const router = express.Router();
 
 const Record = require('../models/record.js');
 
-router.get('/', (req, res) => {
+const { authenticated } = require('../config/auth.js')
+
+router.get('/', authenticated, (req, res) => {
 
   const searchKeyword = req.query.keyword;
 
@@ -25,7 +27,7 @@ router.get('/', (req, res) => {
 })
 
 
-router.get('/search', (req, res) => {
+router.get('/search', authenticated, (req, res) => {
 
   const searchKeyword = req.query.keyword;
 

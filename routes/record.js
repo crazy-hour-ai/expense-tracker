@@ -4,15 +4,17 @@ const router = express.Router();
 const Record = require('../models/record.js');
 const Category = require('../data/category.json').categories;
 
+const { authenticated } = require('../config/auth.js');
+
 router.get('/', (req, res) => {
   return res.redirect('/');
 })
 
-router.get('/new', (req, res) => {
+router.get('/new', authenticated, (req, res) => {
   return res.render('new', { category: Category });
 })
 
-router.post('/', (req, res) => {
+router.post('/', authenticated, (req, res) => {
 
   const record = new Record({
     name: req.body.name,
@@ -28,7 +30,7 @@ router.post('/', (req, res) => {
   })
 })
 
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', authenticated, (req, res) => {
   Record.findOne({ _id: req.params.id })
     .lean()
     .exec((err, recordEdit) => {
@@ -38,7 +40,7 @@ router.get('/:id/edit', (req, res) => {
     })
 })
 
-router.put('/:id/edit', (req, res) => {
+router.put('/:id/edit', authenticated, (req, res) => {
   Record.findOne({ _id: req.params.id }, (err, record) => {
     if (err)
       return console.log(err);
@@ -56,7 +58,7 @@ router.put('/:id/edit', (req, res) => {
   })
 })
 
-router.delete('/:id/delete', (req, res) => {
+router.delete('/:id/delete', authenticated, (req, res) => {
   Record.findOne({ _id: req.params.id }, (err, record) => {
     if (err)
       return console.log(err);
