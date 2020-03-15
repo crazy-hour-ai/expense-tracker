@@ -12,7 +12,7 @@ const Category = require('../../models/category.js');
 const bcrypt = require('bcryptjs');
 
 
-mongoose.connect('process.env.MONGODB_URI || mongodb://127.0.0.1:27017/record', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/record', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 
 const db = mongoose.connection;
 

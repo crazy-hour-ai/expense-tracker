@@ -25,7 +25,7 @@ app.use(methodOverride('_method'));
 
 
 const mongoose = require('mongoose');
-mongoose.connect('process.env.MONGODB_URI || mongodb://localhost:27017/record', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/record', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 const db = mongoose.connection;
 
 db.on('error', () => {
