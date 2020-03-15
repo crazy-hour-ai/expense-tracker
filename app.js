@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 
 const session = require('express-session');
+const passport = require('passport');
 
 const app = express();
 
@@ -36,10 +37,20 @@ app.use(session({
 })
 )
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.use('', require('./routes/home.js'));
 app.use('/records', require('./routes/record.js'));
 app.use('/users', require('./routes/user'));
+
+require('./config/passport')(passport);
+
+app.use((req, res, next) => {
+  res.locals.user = req.user
+  next();
+})
 
 
 app.listen(port, () => {
